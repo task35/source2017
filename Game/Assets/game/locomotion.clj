@@ -13,7 +13,7 @@
                 jumping? false}}
         (state gobj :locomotion)
         anim (cmpt gobj Animator)
-        trns (cmpt man Transform)]
+        trns (cmpt gobj Transform)]
     (doto anim
       (.SetFloat "Speed_f" forward-control)
       (.SetBool "Jump_b" jumping?))
