@@ -1,0 +1,3 @@
+{:arcadia.compiler/loadpaths ["Assets/magic",
+                              "Assets/mage"]
+ }
