@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1462px"
+	 height="734px" viewBox="0 0 1462 734" enable-background="new 0 0 1462 734" xml:space="preserve">
+	 <script xlink:href="/socket.io/socket.io.js" />
+	 <script xlink:href="/controller.js" />
+<g id="base">
+	<rect x="555.51" y="119" fill="none" width="350.98" height="67.497"/>
+	<!-- <text id="label-name" transform="matrix(1 0 0 1 585.6523 153.5117)" font-family="'Helvetica'" font-size="48">NAME NAME</text> -->
+	<rect x="555.51" y="203.655" fill="none" width="350.98" height="67.497"/>
+	<!-- <text id="label-number" transform="matrix(1 0 0 1 626.9961 238.167)" font-family="'Helvetica'" font-size="48">NUMBER</text> -->
+</g>
+<g id="pads">
+	<g id="right-pad">
+		
+			<circle fill="#A8A8A8" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="-1.796" cy="0" r="264"/>
+		<path fill="#C9C9C9" d="M-96.126,53.018c-29.784,22.418-72.102,16.447-94.52-13.337c-22.418-29.783-16.447-72.101,13.337-94.519
+			l133-103.994c29.783-22.418,72.101-16.447,94.519,13.336s16.447,72.102-13.336,94.52L-96.126,53.018z"/>
+		<path fill="#C9C9C9" d="M36.875,156.512c-29.784,22.418-72.102,16.447-94.52-13.337c-22.418-29.783-16.447-72.101,13.337-94.519
+			l133-103.994c29.783-22.418,72.101-16.447,94.519,13.336s16.447,72.102-13.336,94.52L36.875,156.512z"/>
+		
+			<circle id="button-y" fill="#00FF12" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="-136.718" cy="-0.91" r="52.497"/>
+		
+			<circle id="button-x" fill="#0056E9" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="-3.718" cy="-104.904" r="52.497"/>
+		
+			<circle id="button-b" fill="#F6FF6A" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="-2.718" cy="100.584" r="52.497"/>
+		
+			<circle id="button-a" fill="#D45300" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="130.282" cy="-3.41" r="52.497"/>
+		<rect x="-287.611" y="54.585" fill="none" width="144.814" height="37.414"/>
+		<text id="label-y" transform="matrix(1 0 0 1 -231.2114 89.0972)" font-family="'Helvetica'" font-size="48">Y</text>
+		<rect x="-166.611" y="161" fill="none" width="144.814" height="37.415"/>
+		<text id="label-b" transform="matrix(1 0 0 1 -110.2114 195.5112)" font-family="'Helvetica'" font-size="48">B</text>
+		<rect x="142.796" y="-87.619" fill="none" width="144.814" height="37.414"/>
+		<text id="label-a" transform="matrix(1 0 0 1 199.1958 -53.1069)" font-family="'Helvetica'" font-size="48">A</text>
+		<rect x="24.796" y="-197.204" fill="none" width="144.814" height="37.414"/>
+		<text id="label-x" transform="matrix(1 0 0 1 81.1958 -162.6924)" font-family="'Helvetica'" font-size="48">X</text>
+	</g>
+	<g id="left-pad">
+		
+			<circle fill="#A8A8A8" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="-0.5" cy="-1.089" r="267.919"/>
+		<polygon fill="#424242" points="189.908,-60.065 61.846,-60.065 61.846,-188.127 -62.846,-188.127 -62.846,-60.065 
+			-190.908,-60.065 -190.908,64.626 -62.846,64.626 -62.846,192.689 61.846,192.689 61.846,64.626 189.908,64.626 		"/>
+		<polygon fill="#1E1E1E" points="-0.5,-162.29 40.502,-91.082 -0.5,-91.082 -41.502,-91.082 		"/>
+		<polygon fill="#1E1E1E" points="-0.5,174.153 -41.502,102.945 -0.5,102.945 40.502,102.945 		"/>
+		<polygon fill="#1E1E1E" points="-168.721,2.281 -97.514,-38.721 -97.514,2.281 -97.514,43.283 		"/>
+		<polygon fill="#1E1E1E" points="167.721,2.281 96.512,43.283 96.512,2.281 96.512,-38.722 		"/>
+		<path id="dpad-left" opacity="0" fill="#00FF12" d="M-188.242,190.023L-62.846,64.626V-60.064l-125.406-128.779h-3.349
+			c-47.504,48.345-76.818,114.622-76.818,187.754C-268.419,73.75-237.719,141.412-188.242,190.023z"/>
+		<path id="dpad-right" opacity="0" fill="#D45300" d="M188.242-188.844L62.846-63.447V61.244l125.406,128.779h3.349
+			c47.504-48.345,76.818-114.621,76.818-187.754C268.419-72.571,237.719-140.232,188.242-188.844z"/>
+		<path id="dpad-up" opacity="0" fill="#0056E9" d="M-189.434-187.652L-64.037-62.256H60.654l128.779-125.406v-3.349
+			C141.088-238.515,74.812-267.83,1.679-267.83C-73.161-267.83-140.822-237.13-189.434-187.652z"/>
+		<path id="dpad-down" opacity="0" fill="#F6FF6A" d="M189.434,188.832L64.037,63.435H-60.654l-128.779,125.406v3.349
+			c48.345,47.504,114.621,76.818,187.754,76.818C73.161,269.008,140.822,238.309,189.434,188.832z"/>
+	</g>
+</g>
+</svg>
