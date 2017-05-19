@@ -21,9 +21,8 @@
 
 (comment
   (def man (object-named "SimplePeople_StreetMan_Brown"))
-  (set-state! man
-              :locomotion
-              {:forward-control 0
-               :turn-control 0
-               :jumping? false})
-  (hook+ man :update #'locomotion))
+  (role+ man :locomotion
+         {:state {:forward-control 0.2
+                  :turn-control 0
+                  :jumping? false}
+          :update #'locomotion}))
