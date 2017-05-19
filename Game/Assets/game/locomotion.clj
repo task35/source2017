@@ -1,28 +1,45 @@
 (ns game.locomotion
-  (:use arcadia.core)
-  (:import [UnityEngine Animator Transform Time]))
+  (:use arcadia.core
+        arcadia.linear)
+  (:import [UnityEngine Rigidbody ForceMode Animator Transform Time CharacterController]))
 
-(def turn-speed 90)
+(def turn-speed -90)
+(def kick-strength 15)
 
 (defn locomotion [gobj]
   (let [{:keys [forward-control
-                turn-control
-                jumping?]
+                turn-control]
          :or   {forward-control 0
-                turn-control 0
-                jumping? false}}
+                turn-control 0}}
         (state gobj :locomotion)
+        cc (cmpt gobj CharacterController)
         anim (cmpt gobj Animator)
         trns (cmpt gobj Transform)]
+    (.SimpleMove cc (v3* (.forward trns)
+                         (* forward-control Time/deltaTime 100)))
     (doto anim
-      (.SetFloat "Speed_f" forward-control)
-      (.SetBool "Jump_b" jumping?))
+      (.SetFloat "Speed_f" forward-control))
     (.Rotate trns 0 (* turn-control turn-speed Time/deltaTime) 0)))
 
+(defn collision [gobj hit]
+  (if (= "ball" (.. hit gameObject tag))
+    (let [rb (cmpt (.. hit gameObject) Rigidbody)]
+      (.AddForce rb
+                 (v3+ (v3* (.. gobj transform forward) kick-strength)
+                      (v3 0 (* 0 (/ kick-strength 2.0)) 0))
+                 ForceMode/VelocityChange))
+    (log (.. hit gameObject tag))))
+
 (comment
-  (def man (object-named "SimplePeople_StreetMan_Brown"))
-  (role+ man :locomotion
+  (UnityEngine.Application/LoadLevel UnityEngine.Application/loadedLevel)
+  (set! (.animatePhysics (cmpt UnityEditor.Selection/activeObject Animator))
+        false)
+  
+  (def man (object-named "Person"))
+  
+  (role+ UnityEditor.Selection/activeObject :locomotion
          {:state {:forward-control 0.2
-                  :turn-control 0
-                  :jumping? false}
-          :update #'locomotion}))
+                  :turn-control 0}
+          :update #'locomotion
+          :on-controller-collider-hit #'collision})
+  )
