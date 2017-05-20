@@ -44,9 +44,15 @@ function freeJerseyNumber(x) {
   return jerseyNumbers.push(x);
 }
 
+var teamNames = ["Green", "Purple"];
+
+var lastTeam = 0;
+
 function newPlayer(id) {
   players[id] = { name: Charlatan.Name.name(),
+                  team: teamNames[lastTeam],
                   number: allocateJerseyNumber() }
+  lastTeam = +!lastTeam; // invert
 }
 
 function removePlayer(id) {
@@ -74,7 +80,7 @@ app.get('/controllers.edn', function(req, res){
 
 io.on('connection', function(socket){
   newPlayer(socket.id);
-  console.log("* introduce " + players[socket.id].name + " #" + players[socket.id].number + " (" + socket.id + ")");
+  console.log("* introduce " + players[socket.id].name + " Team " + players[socket.id].team + " #" + players[socket.id].number + " (" + socket.id + ")");
   socket.emit('introduce', players[socket.id]);
   socket.on('button-down', function(data) {
     console.log("* button-down", players[socket.id].name, data);
