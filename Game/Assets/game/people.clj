@@ -17,10 +17,13 @@
    (server/start-updates!)))
 
 (defn controller->locomotion
-  [{:strs [dpad-up dpad-left dpad-right button-a]}]
-  {:forward-control (if dpad-up 1 0)
-   :turn-control (cond dpad-left 1 dpad-right -1 :else 0)
-   :jumping? (boolean button-a)})
+  [{:strs [dpad-up dpad-left dpad-down dpad-right]}]
+  {:horizontal (cond dpad-left -1
+                     dpad-right 1
+                     :else 0)
+   :vertical (cond dpad-down -1
+                   dpad-up 1
+                   :else 0)})
 
 (defn world->canvas [v]
   (let [w UnityEngine.Screen/width

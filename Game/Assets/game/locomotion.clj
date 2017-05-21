@@ -1,9 +1,9 @@
 (ns game.locomotion
   (:use arcadia.core
         arcadia.linear)
-  (:import [UnityEngine Rigidbody ForceMode Animator Transform Time CharacterController]))
+  (:import [UnityEngine Vector3 Mathf Rigidbody ForceMode Animator Transform Time CharacterController]))
 
-(def forward-speed 100)
+(def forward-speed 500)
 (def turn-speed -90)
 (def kick-strength 15)
 (def minumum-height -75)
@@ -17,19 +17,27 @@
 (defn locomotion
   ([gobj _] (locomotion gobj))
   ([gobj]
-   (let [{:keys [forward-control
-                 turn-control]
-          :or   {forward-control 0
-                 turn-control 0}}
+   (let [{:keys [horizontal
+                 vertical]
+          :or   {horizontal 0
+                 vertical 0}}
          (state gobj :locomotion)
          cc (cmpt gobj CharacterController)
          anim (cmpt gobj Animator)
-         trns (cmpt gobj Transform)]
-     (.SimpleMove cc (v3* (.forward trns)
-                          (* forward-control Time/deltaTime forward-speed)))
+         trns (cmpt gobj Transform)
+         movement-vector
+         (v3 (* horizontal Time/deltaTime forward-speed)
+             0
+             (* vertical Time/deltaTime forward-speed))]
+     (.SimpleMove cc movement-vector)
+     (set! (.. gobj transform forward)
+           (Vector3/Slerp (.. gobj transform forward)
+                         movement-vector
+                         0.25))
      (doto anim
-       (.SetFloat "Speed_f" forward-control))
-     (.Rotate trns 0 (* turn-control turn-speed Time/deltaTime) 0))))
+       (.SetFloat "Speed_f"
+                  (max (Mathf/Abs vertical)
+                       (Mathf/Abs horizontal)))))))
 
 (defn collision
   ([gobj hit _] (collision gobj hit))
@@ -52,8 +60,8 @@
   (def man (object-named "Person"))
   
   (role+ UnityEditor.Selection/activeObject :locomotion
-         {:state {:forward-control 0.0
-                  :turn-control 0.0}
+         {:state {:horizontal 0.0
+                  :vertical 0.0}
           :update #'locomotion
           :on-controller-collider-hit #'collision})
   )
