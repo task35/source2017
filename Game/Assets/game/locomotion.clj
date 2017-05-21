@@ -6,13 +6,13 @@
 (def forward-speed 100)
 (def turn-speed -90)
 (def kick-strength 15)
-(def minumum-height -250)
+(def minumum-height -75)
 
 (defn reset-on-fall [gobj _]
   (when (< (.. gobj transform position y)
            minumum-height)
     (set! (.. gobj transform position)
-          (v3 0 150 0))))
+          (v3 0 75 0))))
 
 (defn locomotion
   ([gobj _] (locomotion gobj))
