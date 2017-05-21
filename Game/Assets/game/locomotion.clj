@@ -6,6 +6,13 @@
 (def forward-speed 100)
 (def turn-speed -90)
 (def kick-strength 15)
+(def minumum-height -250)
+
+(defn reset-on-fall [gobj _]
+  (when (< (.. gobj transform position y)
+           minumum-height)
+    (set! (.. gobj transform position)
+          (v3 0 150 0))))
 
 (defn locomotion
   ([gobj _] (locomotion gobj))
@@ -38,6 +45,7 @@
 
 (comment
   (UnityEngine.Application/LoadLevel UnityEngine.Application/loadedLevel)
+  (hook+ UnityEditor.Selection/activeObject :update :reset-on-fall #'reset-on-fall)
   (set! (.animatePhysics (cmpt UnityEditor.Selection/activeObject Animator))
         false)
   
