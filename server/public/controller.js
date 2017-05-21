@@ -103,7 +103,7 @@ window.onload = function() {
   socket.on('introduce', function(player) {
     document.querySelector("#name").innerHTML = player.name;
     document.querySelector("#number").innerHTML = "#" + player.number;
-    setBackgroundColor(player.team == "Green" ? "#00FF00" : "#FF00FF");
+    setBackgroundColor(player.team == "Green" ? "#32A51E" : "#FF00FF");
     window.onresize();
   })
 }
