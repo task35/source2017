@@ -2,7 +2,7 @@
   (:use arcadia.core
         arcadia.linear)
   (:require [game.server :as server])
-  (:import [UnityEngine RectTransform Resources GameObject Animator Transform Time Camera
+  (:import [UnityEngine Mathf Quaternion RectTransform Resources GameObject Animator Transform Time Camera
             UI.Text]))
 
 (def person-prefab
@@ -31,8 +31,8 @@
       (- (* h (.y p)) (/ h 2.0))
       0)))
 
-(defn snap-name-tag [gobj]
-  (set! (.. (state gobj :name-tag) transform localPosition)
+(defn snap-name-tag [gobj k]
+  (set! (.. (state gobj k) transform localPosition)
         (v3+ (world->canvas (.. gobj transform position))
              (v3 0 50 0))))
 
@@ -53,7 +53,10 @@
      ;; add new children
      (doseq [[id {:strs [name number team]}] players]
        (when-not (.. gobj transform (Find id))
-         (let [person (instantiate person-prefab)
+         (let [init-position (v3 (- 5 (rand 10))
+                                 150
+                                 (- 5 (rand 10)))
+               person (instantiate person-prefab init-position)
                name-tag (instantiate name-tag-prefab)]
            ;; set up person
            (child+ gobj person)
