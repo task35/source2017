@@ -61,7 +61,7 @@
            ;; set up person
            (child+ gobj person)
            (set! (.name person) id)
-           (enable-random-skin person-prefab team)
+           (enable-random-skin person team)
            ;; set name tag
            (child+ canvas name-tag)
            (set! (.name name-tag) id)
