@@ -11,8 +11,10 @@
 (def name-tag-prefab
   (Resources/Load "Name Tag"))
 
-(defn start [gobj]
-  (server/start-updates!))
+(defn start
+  ([gobj _] (start gobj))
+  ([gobj]
+   (server/start-updates!)))
 
 (defn controller->locomotion
   [{:strs [dpad-up dpad-left dpad-right button-a]}]
@@ -41,38 +43,40 @@
                  .gameObject)]
     (.SetActive skin true)))
 
-(defn populate [gobj]
-  (let [players @server/players
-        controllers @server/controllers
-        canvas (object-named "Canvas")
-        ids (-> players keys set)]
-    ;; add new children
-    (doseq [[id {:strs [name number team]}] players]
-      (when-not (.. gobj transform (Find id))
-        (let [person (instantiate person-prefab)
-              name-tag (instantiate name-tag-prefab)]
-          ;; set up person
-          (child+ gobj person)
-          (set! (.name person) id)
-          (enable-random-skin person team)
-          ;; set name tag
-          (child+ canvas name-tag)
-          (set! (.name name-tag) id)
-          (set! (.text (cmpt name-tag Text)) (str "#" number))
-          (role+ person :name-tag
-                 {:state name-tag
-                  :update #'snap-name-tag}))))
-    ;; remove missing children
-    (doseq [child (.. gobj transform)]
-      (when-not (ids (.name child))
-        (destroy (state child :name-tag))
-        (destroy (.gameObject child))
-        ))
-    ;; controll players
-    (doseq [[id controller] controllers]
-      (when-let [child (.. gobj transform (Find id))]
-        (set-state! child :locomotion
-                    (controller->locomotion controller))))))
+(defn populate
+  ([gobj _] (populate gobj))
+  ([gobj]
+   (let [players @server/players
+         controllers @server/controllers
+         canvas (object-named "Canvas")
+         ids (-> players keys set)]
+     ;; add new children
+     (doseq [[id {:strs [name number team]}] players]
+       (when-not (.. gobj transform (Find id))
+         (let [person (instantiate person-prefab)
+               name-tag (instantiate name-tag-prefab)]
+           ;; set up person
+           (child+ gobj person)
+           (set! (.name person) id)
+           (enable-random-skin person team)
+           ;; set name tag
+           (child+ canvas name-tag)
+           (set! (.name name-tag) id)
+           (set! (.text (cmpt name-tag Text)) (str "#" number))
+           (role+ person :name-tag
+                  {:state name-tag
+                   :update #'snap-name-tag}))))
+     ;; remove missing children
+     (doseq [child (.. gobj transform)]
+       (when-not (ids (.name child))
+         (destroy (state child :name-tag))
+         (destroy (.gameObject child))
+         ))
+     ;; controll players
+     (doseq [[id controller] controllers]
+       (when-let [child (.. gobj transform (Find id))]
+         (set-state! child :locomotion
+                     (controller->locomotion controller)))))))
 
 (comment
   (role+ (object-named "People") :people
