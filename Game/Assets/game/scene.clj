@@ -5,5 +5,5 @@
 
 (def speed 0)
 
-(defn day-night-cycle [gobj]
+(defn day-night-cycle [gobj _]
   (.. gobj transform (Rotate (* Time/deltaTime speed) 0 0)))

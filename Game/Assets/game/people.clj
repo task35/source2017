@@ -37,11 +37,11 @@
              (v3 0 50 0))))
 
 (defn enable-random-skin [gobj team]
-  (let [skin (-> (.. gobj transform (Find team))
-                 seq
-                 rand-nth
-                 .gameObject)]
-    (.SetActive skin true)))
+  (-> (.. gobj transform (Find team))
+      seq
+      rand-nth
+      .gameObject
+      (.SetActive true)))
 
 (defn populate
   ([gobj _] (populate gobj))
@@ -58,7 +58,7 @@
            ;; set up person
            (child+ gobj person)
            (set! (.name person) id)
-           (enable-random-skin person team)
+           (enable-random-skin person-prefab team)
            ;; set name tag
            (child+ canvas name-tag)
            (set! (.name name-tag) id)
@@ -70,8 +70,7 @@
      (doseq [child (.. gobj transform)]
        (when-not (ids (.name child))
          (destroy (state child :name-tag))
-         (destroy (.gameObject child))
-         ))
+         (destroy (.gameObject child))))
      ;; controll players
      (doseq [[id controller] controllers]
        (when-let [child (.. gobj transform (Find id))]
