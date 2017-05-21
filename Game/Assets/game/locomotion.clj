@@ -3,6 +3,7 @@
         arcadia.linear)
   (:import [UnityEngine Rigidbody ForceMode Animator Transform Time CharacterController]))
 
+(def forward-speed 100)
 (def turn-speed -90)
 (def kick-strength 15)
 
@@ -16,7 +17,7 @@
         anim (cmpt gobj Animator)
         trns (cmpt gobj Transform)]
     (.SimpleMove cc (v3* (.forward trns)
-                         (* forward-control Time/deltaTime 100)))
+                         (* forward-control Time/deltaTime forward-speed)))
     (doto anim
       (.SetFloat "Speed_f" forward-control))
     (.Rotate trns 0 (* turn-control turn-speed Time/deltaTime) 0)))
@@ -38,8 +39,8 @@
   (def man (object-named "Person"))
   
   (role+ UnityEditor.Selection/activeObject :locomotion
-         {:state {:forward-control 0.2
-                  :turn-control 0}
+         {:state {:forward-control 0.0
+                  :turn-control 0.0}
           :update #'locomotion
           :on-controller-collider-hit #'collision})
   )

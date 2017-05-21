@@ -34,29 +34,39 @@
         (v3+ (world->canvas (.. gobj transform position))
              (v3 0 50 0))))
 
+(defn enable-random-skin [gobj team]
+  (let [skin (-> (.. gobj transform (Find team))
+                 seq
+                 rand-nth
+                 .gameObject)]
+    (.SetActive skin true)))
+
 (defn populate [gobj]
   (let [players @server/players
         controllers @server/controllers
         canvas (object-named "Canvas")
         ids (-> players keys set)]
     ;; add new children
-    (doseq [[id {:strs [name number]}] players]
+    (doseq [[id {:strs [name number team]}] players]
       (when-not (.. gobj transform (Find id))
         (let [person (instantiate person-prefab)
               name-tag (instantiate name-tag-prefab)]
-          (set! (.name person) id)
+          ;; set up person
           (child+ gobj person)
+          (set! (.name person) id)
+          (enable-random-skin person team)
+          ;; set name tag
+          (child+ canvas name-tag)
           (set! (.name name-tag) id)
           (set! (.text (cmpt name-tag Text)) (str "#" number))
-          (child+ canvas name-tag)
           (role+ person :name-tag
                  {:state name-tag
                   :update #'snap-name-tag}))))
     ;; remove missing children
     (doseq [child (.. gobj transform)]
       (when-not (ids (.name child))
+        (destroy (state child :name-tag))
         (destroy (.gameObject child))
-        (destroy (.. canvas transform (Find )))
         ))
     ;; controll players
     (doseq [[id controller] controllers]
